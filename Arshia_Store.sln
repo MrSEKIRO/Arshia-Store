@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{9C30EEAE-6322-4E81-BE0A-B3FFCAA85385}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Users\Jazebeh\Desktop\Clean Artichecture.png = ..\..\Users\Jazebeh\Desktop\Clean Artichecture.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{FAA00F99-475E-4FF9-A3A4-02800320E77B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F078F8DA-F2A4-4D6A-A2D1-55E6A072E4B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2F884725-0759-4A63-A804-2E9733B19B3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastrucuter", "Infrastrucuter", "{8C4CE5B8-6DB0-4132-BA1C-86838849F865}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9292BF3F-C32C-4FFF-B0F6-F564FCE1830F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{00D872F6-8B2B-4432-BA95-8B285441FA80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arshia_Store.Domain", "Arshia_Store.Domain\Arshia_Store.Domain.csproj", "{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arshia_Store.Application", "Arshia_store.Application\Arshia_Store.Application.csproj", "{71EEE941-D411-48E8-95FB-8021A9FA7A98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arshia_Store.Infrastructure", "Arshia_Store.Infrastructure\Arshia_Store.Infrastructure.csproj", "{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arshai_Store.Presistence", "Arshai_Store.Presistence\Arshai_Store.Presistence.csproj", "{8666D720-5B1A-421E-949D-9C3B97F7D81C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arshia_Store.Common", "Arshia_Store.Common\Arshia_Store.Common.csproj", "{7AF85382-F2A3-479D-B54C-90DC5841F32E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndPoint.Site", "EndPoint.Site\EndPoint.Site.csproj", "{6A6A5811-2168-4995-8682-2A9BA60AD701}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EEE941-D411-48E8-95FB-8021A9FA7A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EEE941-D411-48E8-95FB-8021A9FA7A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EEE941-D411-48E8-95FB-8021A9FA7A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EEE941-D411-48E8-95FB-8021A9FA7A98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8666D720-5B1A-421E-949D-9C3B97F7D81C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8666D720-5B1A-421E-949D-9C3B97F7D81C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8666D720-5B1A-421E-949D-9C3B97F7D81C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8666D720-5B1A-421E-949D-9C3B97F7D81C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF85382-F2A3-479D-B54C-90DC5841F32E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF85382-F2A3-479D-B54C-90DC5841F32E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF85382-F2A3-479D-B54C-90DC5841F32E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF85382-F2A3-479D-B54C-90DC5841F32E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6A5811-2168-4995-8682-2A9BA60AD701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6A5811-2168-4995-8682-2A9BA60AD701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6A5811-2168-4995-8682-2A9BA60AD701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6A5811-2168-4995-8682-2A9BA60AD701}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F884725-0759-4A63-A804-2E9733B19B3C} = {FAA00F99-475E-4FF9-A3A4-02800320E77B}
+		{8C4CE5B8-6DB0-4132-BA1C-86838849F865} = {FAA00F99-475E-4FF9-A3A4-02800320E77B}
+		{9292BF3F-C32C-4FFF-B0F6-F564FCE1830F} = {FAA00F99-475E-4FF9-A3A4-02800320E77B}
+		{00D872F6-8B2B-4432-BA95-8B285441FA80} = {FAA00F99-475E-4FF9-A3A4-02800320E77B}
+		{16506E0A-CC2D-44AF-8AA8-CA6B83DA2838} = {2F884725-0759-4A63-A804-2E9733B19B3C}
+		{71EEE941-D411-48E8-95FB-8021A9FA7A98} = {2F884725-0759-4A63-A804-2E9733B19B3C}
+		{FDCCC1FC-F4A4-4D60-B53B-9E1F6B251D6B} = {8C4CE5B8-6DB0-4132-BA1C-86838849F865}
+		{8666D720-5B1A-421E-949D-9C3B97F7D81C} = {8C4CE5B8-6DB0-4132-BA1C-86838849F865}
+		{7AF85382-F2A3-479D-B54C-90DC5841F32E} = {00D872F6-8B2B-4432-BA95-8B285441FA80}
+		{6A6A5811-2168-4995-8682-2A9BA60AD701} = {9292BF3F-C32C-4FFF-B0F6-F564FCE1830F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0BCC5DA5-4DA5-4157-B596-79D25F0EB3BE}
+	EndGlobalSection
+EndGlobal
