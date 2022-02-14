@@ -10,7 +10,8 @@ namespace Arshia_Store.Application.Validatores
 		{
 			RuleFor(u => u.FullName)
 				.NotEmpty().WithMessage("لطفا نام را وارد کنید")
-				.MinimumLength(3).WithMessage("لطفا نام را کامل وارد کنید");
+				.MinimumLength(3).WithMessage("لطفا نام را کامل وارد کنید")
+				.MaximumLength(30).WithMessage("اسم باید زیر 30 کاراکتر باشد");
 
 			RuleFor(u => u.Email)
 				.NotEmpty().WithMessage("ایمیل را وارد کنید")
@@ -18,7 +19,8 @@ namespace Arshia_Store.Application.Validatores
 
 			RuleFor(u => u.Password)
 				.NotEmpty().WithMessage("لطفا رمز خود را وارد کنید")
-				.MinimumLength(5).WithMessage("پسورد باید حداقل شامل 5 کاراکتر باشد");
+				.MinimumLength(5).WithMessage("پسورد باید حداقل شامل 5 کاراکتر باشد")
+				.MaximumLength(12).WithMessage("رمز باید زیر 12 کاراکتر باشد");
 
 			RuleFor(u => u.RePassword)
 				.NotEmpty().WithMessage("لطفا  تکرار رمز خود را وارد کنید")
