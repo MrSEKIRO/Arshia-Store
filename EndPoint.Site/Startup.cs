@@ -1,5 +1,6 @@
 using Arshai_Store.Presistence.Contexts;
 using Arshia_Store.Application.Interfaces.Contexts;
+using Arshia_Store.Application.Serivces.Users.Commands.EditUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RemoveUser;
 using Arshia_Store.Application.Serivces.Users.Commands.UserStatusChange;
@@ -40,6 +41,7 @@ namespace EndPoint.Site
 			services.AddScoped<IRegisterUserService, RegisterUserService>();
 			services.AddScoped<IRemoveUserSerivce, RemoveUserService>();
 			services.AddScoped<IUserStatusChange, UserStatusChange>();
+			services.AddScoped<IEditUserService, EditUserService>();
 
 			services.AddEntityFrameworkSqlServer()
 				.AddDbContext<StoreDbContext>(option => option.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));

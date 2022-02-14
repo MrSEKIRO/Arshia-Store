@@ -1,4 +1,5 @@
-﻿using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
+﻿using Arshia_Store.Application.Serivces.Users.Commands.EditUser;
+using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RemoveUser;
 using Arshia_Store.Application.Serivces.Users.Commands.UserStatusChange;
 using Arshia_Store.Application.Serivces.Users.Queries.GetRoles;
@@ -18,22 +19,30 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 		private readonly IRegisterUserService _registerUserService;
 		private readonly IRemoveUserSerivce _removeUserService;
 		private readonly IUserStatusChange _userStatusChange;
+		private readonly IEditUserService _editUserService;
 		public UserController(IGetUsersService getUsersService
 			, IGetRolesService getRolesService
 			, IRegisterUserService registerUserService
 			, IRemoveUserSerivce removeUserSerivce
-			, IUserStatusChange userStatusChange)
+			, IUserStatusChange userStatusChange
+			, IEditUserService editUserService)
 		{
 			_getUsersService = getUsersService;
 			_getRolesService = getRolesService;
 			_registerUserService = registerUserService;
 			_removeUserService = removeUserSerivce;
 			_userStatusChange = userStatusChange;
+			_editUserService = editUserService;
 		}
 
 		public IActionResult Index(string searchKey, int page = 1)
 		{
-			return View(_getUsersService.Execute(new RequestGetUserDto { SearchKey = searchKey, Page = page }));
+			return View(_getUsersService.Execute(new RequestGetUserDto()
+			{
+				SearchKey = searchKey,
+				Page = page
+			}
+			));
 		}
 
 		[HttpGet]
@@ -73,6 +82,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 		public IActionResult UserStatusChange(long UserId)
 		{
 			var result = _userStatusChange.Execute((int)UserId);
+
+			return Json(result);
+		}
+
+		[HttpPost]
+		public IActionResult Edit(long UserId, string FullName, string Email)
+		{
+			var result = _editUserService.Execute((int)UserId, FullName, Email);
 
 			return Json(result);
 		}
