@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Arshia_Store.Common.UserRoles
 {
-	public class UserRoles
+	public enum UserRoles
 	{
-		public const string Admin = "Admin";
-		public const string Operator = "Operator";
-		public const string Costumer = "Costumer";
+		Admin = 1,
+		Operator,
+		Costumer,
 	}
+
+	//public class UserRoles
+	//{
+	//	public const string Admin = "Admin";
+	//	public const string Operator = "Operator";
+	//	public const string Costumer = "Costumer";
+	//}
 }

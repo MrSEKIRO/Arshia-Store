@@ -6,15 +6,19 @@ using Arshia_Store.Application.Serivces.Users.Commands.RemoveUser;
 using Arshia_Store.Application.Serivces.Users.Commands.UserStatusChange;
 using Arshia_Store.Application.Serivces.Users.Queries.GetRoles;
 using Arshia_Store.Application.Serivces.Users.Queries.GetUsers;
+using Arshia_Store.Application.Serivces.Users.Queries.UserLogin;
 using Arshia_Store.Application.Validatores;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace EndPoint.Site
 {
@@ -30,6 +34,18 @@ namespace EndPoint.Site
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddAuthentication(options =>
+			{
+				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+			}).AddCookie(options =>
+			{
+				options.LoginPath = new PathString("/");
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(1.0);
+			});
+
+
 			var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
 			services.AddMvc().AddFluentValidation();
@@ -42,6 +58,7 @@ namespace EndPoint.Site
 			services.AddScoped<IRemoveUserSerivce, RemoveUserService>();
 			services.AddScoped<IUserStatusChange, UserStatusChange>();
 			services.AddScoped<IEditUserService, EditUserService>();
+			services.AddScoped<IUserLoginService, UserLoginService>();
 
 			services.AddEntityFrameworkSqlServer()
 				.AddDbContext<StoreDbContext>(option => option.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
@@ -54,6 +71,9 @@ namespace EndPoint.Site
 			if(env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+
+				// For see changes after save imediately
+				//app.UseDirectoryBrowser();
 			}
 			else
 			{
@@ -68,15 +88,26 @@ namespace EndPoint.Site
 			app.UseRouting();
 
 			app.UseAuthorization();
+			app.UseAuthentication();
 
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
-			
+
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Home}/{action=Index}/{id?}"
+				);
+
 				endpoints.MapControllerRoute(
 					name: "areas",
 					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				);
+
+				//endpoints.MapControllerRoute(
+				//	name: "areas",
+				//	pattern: "{controller=Authentication}/{action=SignUp}/{id?}"
+				//);
 			});
 		}
 	}

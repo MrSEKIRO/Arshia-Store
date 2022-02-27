@@ -10,7 +10,6 @@ namespace Arshia_Store.Application.Serivces.Users.Commands.EditUser
 	public class EditUserService : IEditUserService
 	{
 		private readonly IStoreDbContext _context;
-		private const string CorrectPassword = "Pasword1234!";
 		public EditUserService(IStoreDbContext context)
 		{
 			_context = context;
@@ -20,27 +19,29 @@ namespace Arshia_Store.Application.Serivces.Users.Commands.EditUser
 			try
 			{
 				// check new information with Flunet Validatores
-				// Password and RePass will set as granteed 
 				RegisterUserValidatore validationRules = new();
 				var validationResult = validationRules.Validate(new RequestRegisterUserDto()
-					{
-						FullName = FullName,
-						Email = Email,
-						Password = CorrectPassword,
-						RePassword = CorrectPassword,
-					}
+				{
+					FullName = FullName,
+					Email = Email,
+				}
 				);
 
-				if(validationResult.IsValid == false)
+				var errors = validationResult.Errors
+					.Where(e => e.PropertyName == $"{nameof(RequestRegisterUserDto.FullName)}" || e.PropertyName == $"{nameof(RequestRegisterUserDto.Email)}")
+					.ToList();
+
+				if(errors.Count != 0)
 				{
 					return new ResultDto()
 					{
 						IsSuccess = false,
-						Message = validationResult.Errors[0].ErrorMessage,
+						Message = errors[0].ErrorMessage,
 					};
 				}
 
-				bool duplicateEmail = _context.Users.Any(u => u.Email == Email);
+				// check if we have a user with same new Email
+				bool duplicateEmail = _context.Users.Any(u => u.Id != UserId && u.Email == Email);
 				if(duplicateEmail == true)
 				{
 					return new ResultDto()

@@ -1,9 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string imageSource=string.Empty;
+    if(Context.User.Identity.IsAuthenticated==true)
+        imageSource=$"https://robohash.org/{Context.User.Identity.Name}/?set=set4";
+}
+
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فروشگاه اینترنتی کالا مارکت</title>
+    <title>فروشگاه اینترنتی ارشیا</title>
     <!-- font---------------------------------------->
     <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
     <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
@@ -68,26 +74,34 @@
                                 <div class="d-block">
                                     <div class="account-box">
                                         <div class="nav-account d-block pl">
-                                            <span class="icon-account">
-                                                <img src="~/SiteTemplate/assets/images/man.png" class="avator">
-                                            </span>
-                                            <span class="title-account">حساب کاربری</span>
-                                            <div class="dropdown-menu">
-                                                <ul class="account-uls mb-0">
-                                                    <li class="account-item">
-                                                        <a href="#" class="account-link">پنل کاربری</a>
-                                                    </li>
-                                                    <li class="account-item">
-                                                        <a href="#" class="account-link">سفارشات من</a>
-                                                    </li>
-                                                    <li class="account-item">
-                                                        <a href="#" class="account-link">تنظیمات</a>
-                                                    </li>
-                                                    <li class="account-item">
-                                                        <a href="#" class="account-link">خروج</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            @if(Context.User.Identity.IsAuthenticated == true)
+                                            {
+                                                <span class="icon-account">
+                                                    @*<img src="~/SiteTemplate/assets/images/man.png" class="avator">*@
+                                                    <img src=@imageSource  class="avator">
+                                                </span>
+                                                 <span class="title-account">@Context.User.Identity.Name</span>
+                                                <div class="dropdown-menu">
+                                                    <ul class="account-uls mb-0">
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">پنل کاربری</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">سفارشات من</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a href="#" class="account-link">تنظیمات</a>
+                                                        </li>
+                                                        <li class="account-item">
+                                                            <a asp-action="UserSignOut" asp-controller="Authentication" class="account-link">خروج</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }else
+                                            {
+                                                 <a asp-controller="Authentication" asp-action="SignIn" class="title-account">ورود</a>
+                                                 <a asp-controller="Authentication" asp-action="SignUp" class="title-account">ثبت نام</a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
