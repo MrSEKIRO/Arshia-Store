@@ -1,6 +1,7 @@
 ﻿using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Application.Validatores;
 using Arshia_Store.Common.Dto;
+using Arshia_Store.Common.HashPassword;
 using Arshia_Store.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -44,10 +45,13 @@ namespace Arshia_Store.Application.Serivces.Users.Commands.RegisterUser
 					};
 				}
 
+				var password=HashPassword.Hash(request.Password);
+
 				User user = new User()
 				{
 					FullName = request.FullName,
 					Email = request.Email,
+					Password = password,
 				};
 
 				List<Role> roles = new List<Role>();

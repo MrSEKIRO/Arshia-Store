@@ -17,9 +17,9 @@ namespace Arshai_Store.Presistence.Contexts
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			// making defualte roles
-			modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin) });
-			modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator) });
-			modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Costumer) });
+			modelBuilder.Entity<Role>().HasData(new Role { Id = (int)UserRoles.Admin, Name = UserRoles.Admin.ToString() });
+			modelBuilder.Entity<Role>().HasData(new Role { Id = (int)UserRoles.Operator, Name = UserRoles.Operator.ToString() });
+			modelBuilder.Entity<Role>().HasData(new Role { Id = (int)UserRoles.Costumer, Name = UserRoles.Costumer.ToString() });
 
 			// make emails unique
 			modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
