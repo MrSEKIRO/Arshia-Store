@@ -9,6 +9,7 @@ namespace Arshia_Store.Application.Interfaces.Contexts
 	{
 		DbSet<User> Users { get; set; }
 		DbSet<Role> Roles { get; set; }
+		DbSet<Category> Categories { get; set; }
 		int SaveChanges(bool acceptAllChangesOnSuccess);
 		int SaveChanges();
 

@@ -5,12 +5,15 @@ using Arshia_Store.Application.Serivces.Users.Commands.UserStatusChange;
 using Arshia_Store.Application.Serivces.Users.Queries.GetRoles;
 using Arshia_Store.Application.Serivces.Users.Queries.GetUsers;
 using Arshia_Store.Application.Validatores;
+using EndPoint.Site.AuthenticationPolicies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
+	[Authorize(Policy = nameof(AdminRequirement))]
 	[Area("Admin")]
 	public class UserController : Controller
 	{

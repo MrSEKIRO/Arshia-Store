@@ -1,7 +1,7 @@
 ﻿@{
     string imageSource=string.Empty;
     if(Context.User.Identity.IsAuthenticated==true)
-        imageSource=$"https://robohash.org/{Context.User.Identity.Name}/?set=set4";
+        imageSource=$"https://robohash.org/{Context.User.Identity.Name.Replace(" ","")}/?set=set4";
 }
 
 <!DOCTYPE html>

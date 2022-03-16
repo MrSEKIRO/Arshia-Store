@@ -108,9 +108,11 @@
     {
         var Email = $("#Email").val();
         var Password = $("#Password").val();
+        var Remember=$('#remember').val();
         var postData = {
             'Email': Email,
             'Password': Password,
+            'Remember':Remember,
         };
         $.ajax(
         {
