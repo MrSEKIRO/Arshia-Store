@@ -13,14 +13,26 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 			_productFacad = productFacad;
 		}
 
+		public IActionResult Index(int? ParentId)
+		{
+			var result=_productFacad.GetCategoriesService.Execute(ParentId);
+
+			return View(result.Data);
+		}
+
+		[HttpGet]
 		public IActionResult AddNewCategory(int? parentId)
 		{
 			ViewBag.parentId = parentId;
 			return View();
 		}
-		public IActionResult Index()
+
+		[HttpPost]
+		public IActionResult AddNewCategory(int? ParentId, string Name)
 		{
-			return View();
+			var result = _productFacad.AddNewCategoryService.Execute(ParentId, Name);
+
+			return Json(result);
 		}
 	}
 }

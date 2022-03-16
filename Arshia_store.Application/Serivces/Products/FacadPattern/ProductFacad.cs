@@ -1,11 +1,7 @@
 ﻿using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Application.Interfaces.FacadPatterns;
 using Arshia_Store.Application.Serivces.Products.AddNewCategory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Arshia_Store.Application.Serivces.Products.Queries.GetAllCategories;
 
 namespace Arshia_Store.Application.Serivces.Products.FacadPattern
 {
@@ -23,7 +19,16 @@ namespace Arshia_Store.Application.Serivces.Products.FacadPattern
 		{
 			get
 			{
-				return _AddNewCategoryService ?? (_AddNewCategoryService = new AddNewCategoryService(_context));
+				return _AddNewCategoryService ??= new AddNewCategoryService(_context);
+			}
+		}
+
+		private GetCategoriesService _GetCategoriesService;
+		public GetCategoriesService GetCategoriesService
+		{
+			get
+			{
+				return _GetCategoriesService ??= new GetCategoriesService(_context);
 			}
 		}
 	}
