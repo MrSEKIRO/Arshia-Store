@@ -1,5 +1,7 @@
 using Arshai_Store.Presistence.Contexts;
 using Arshia_Store.Application.Interfaces.Contexts;
+using Arshia_Store.Application.Interfaces.FacadPatterns;
+using Arshia_Store.Application.Serivces.Products.FacadPattern;
 using Arshia_Store.Application.Serivces.Users.Commands.EditUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RemoveUser;
@@ -8,9 +10,12 @@ using Arshia_Store.Application.Serivces.Users.Queries.GetRoles;
 using Arshia_Store.Application.Serivces.Users.Queries.GetUsers;
 using Arshia_Store.Application.Serivces.Users.Queries.UserLogin;
 using Arshia_Store.Application.Validatores;
+using Arshia_Store.Common.UserRoles;
+using EndPoint.Site.AuthenticationPolicies;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Security.Claims;
 
 namespace EndPoint.Site
 {
@@ -34,6 +40,8 @@ namespace EndPoint.Site
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddRazorPages();
+
 			services.AddAuthentication(options =>
 			{
 				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -41,15 +49,28 @@ namespace EndPoint.Site
 				options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 			}).AddCookie(options =>
 			{
-				options.LoginPath = new PathString("/");
-				options.ExpireTimeSpan = TimeSpan.FromMinutes(1.0);
+				options.LoginPath = new PathString("/Authentication/SignIn");
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+			});
+
+			// Just Admins can use this side
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy(nameof(AdminRequirement) , policy =>
+				{
+					policy.Requirements.Add(new AdminRequirement(UserRoles.Admin.ToString()));
+				});
 			});
 
 
 			var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
+			// Fluent Validation
 			services.AddMvc().AddFluentValidation();
 			services.AddTransient<IValidator<RequestRegisterUserDto>, RegisterUserValidatore>();
+
+			// Costum Policy Authorization
+			services.AddSingleton<IAuthorizationHandler, AdminHandler>();
 
 			services.AddScoped<IStoreDbContext, StoreDbContext>();
 			services.AddScoped<IGetUsersService, GetUsersService>();
@@ -60,9 +81,12 @@ namespace EndPoint.Site
 			services.AddScoped<IEditUserService, EditUserService>();
 			services.AddScoped<IUserLoginService, UserLoginService>();
 
+			// Facad Inject for Products
+			services.AddScoped<IProductFacad, ProductFacad>();
+
+			// Add EF Core
 			services.AddEntityFrameworkSqlServer()
 				.AddDbContext<StoreDbContext>(option => option.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
-			services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,8 +111,8 @@ namespace EndPoint.Site
 
 			app.UseRouting();
 
-			app.UseAuthorization();
 			app.UseAuthentication();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

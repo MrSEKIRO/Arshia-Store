@@ -4,6 +4,9 @@
 	{
 		public int UserId { get; set; }
 		public string FullName { get; set; }
+
+		// string of roles together
+		// ex : UserAdmin
 		public string Roles { get; set; }
 	}
 }

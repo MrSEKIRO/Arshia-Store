@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EndPoint.Site.Controllers
 {
@@ -63,7 +64,7 @@ namespace EndPoint.Site.Controllers
 					new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
 					new Claim(ClaimTypes.Email,newUser.Email),
 					new Claim(ClaimTypes.Name, newUser.FullName),
-					new Claim(ClaimTypes.Role,"Costumer"),
+					new Claim(ClaimTypes.Role,UserRoles.Costumer.ToString()),
 				};
 
 				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -85,7 +86,7 @@ namespace EndPoint.Site.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SignIn(string Email, string Password)
+		public IActionResult SignIn(string Email, string Password, bool Remember)
 		{
 			var result = _userLoginService.Execute(Email, Password);
 
@@ -101,10 +102,10 @@ namespace EndPoint.Site.Controllers
 
 				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 				var principal = new ClaimsPrincipal(identity);
+				// Remember me check box
 				var properties = new AuthenticationProperties()
 				{
-					IsPersistent = true,
-					ExpiresUtc = DateTime.Now.AddDays(5),
+					IsPersistent = Remember,
 				};
 
 				HttpContext.SignInAsync(principal, properties);
