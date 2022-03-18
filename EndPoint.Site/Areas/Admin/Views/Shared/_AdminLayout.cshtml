@@ -1,4 +1,4 @@
-﻿
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
     string imageSource=string.Empty;
@@ -79,6 +79,18 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title">  کالا ها </span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="~/admin/categories/" class="menu-item">همه کالا ها</a>
+                                </li>
+                                <li>
+                                    <a href="~/admin/categories/addnewcategory" class="menu-item"> افزودن کالای جدید </a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>
@@ -150,8 +162,11 @@
                                 </a>
                                 <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-left">
                                     <div class="arrow_box_right">
-                                        <a href="user-profile-page.html" class="dropdown-item py-1"><i class="ft-edit ml-2"></i><span>پروفایل من</span></a><a href="chat.html" class="dropdown-item py-1"><i class="ft-message-circle ml-2"></i><span>چت من</span></a><a href="javascript:;" class="dropdown-item py-1"><i class="ft-settings ml-2"></i><span>تنظیمات</span></a>
-                                        <div class="dropdown-divider"></div><a href="javascript:;" class="dropdown-item"><i class="ft-power ml-2"></i><span>خروج</span></a>
+                                        <a href="user-profile-page.html" class="dropdown-item py-1"><i class="ft-edit ml-2"></i><span>پروفایل من</span></a>
+                                        <a href="chat.html" class="dropdown-item py-1"><i class="ft-message-circle ml-2"></i><span>چت من</span></a>
+                                        <a href="javascript:;" class="dropdown-item py-1"><i class="ft-settings ml-2"></i><span>تنظیمات</span></a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="javascript:;" class="dropdown-item"><i class="ft-power ml-2"></i><span>خروج</span></a>
                                     </div>
                                 </div>
                             </li>

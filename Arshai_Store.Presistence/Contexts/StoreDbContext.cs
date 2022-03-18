@@ -15,6 +15,9 @@ namespace Arshai_Store.Presistence.Contexts
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductImage> ProductImages { get; set; }
+		public DbSet<ProductFeature> ProductFeatures { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -54,6 +57,30 @@ namespace Arshai_Store.Presistence.Contexts
 		{
 			builder.HasQueryFilter(u=>u.IsRemoved == false);
 
+		}
+	}
+
+	public class ProductTypeConfigurations : IEntityTypeConfiguration<Product>
+	{
+		public void Configure(EntityTypeBuilder<Product> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
+		}
+	}
+	
+	public class ProductImageTypeConfigurations : IEntityTypeConfiguration<ProductImage>
+	{
+		public void Configure(EntityTypeBuilder<ProductImage> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
+		}
+	}
+	
+	public class ProductFeatureTypeConfigurations : IEntityTypeConfiguration<ProductFeature>
+	{
+		public void Configure(EntityTypeBuilder<ProductFeature> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
 		}
 	}
 }

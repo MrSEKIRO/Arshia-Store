@@ -1,5 +1,7 @@
 ﻿using Arshia_Store.Application.Serivces.Products.AddNewCategory;
+using Arshia_Store.Application.Serivces.Products.Commands.AddNewProduct;
 using Arshia_Store.Application.Serivces.Products.Queries.GetAllCategories;
+using Arshia_Store.Application.Serivces.Products.Queries.GetAllCategoriesTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace Arshia_Store.Application.Interfaces.FacadPatterns
 	{
 		AddNewCategoryService AddNewCategoryService { get; }
 		GetCategoriesService GetCategoriesService { get; }
+		AddNewProductService AddNewProductService { get; }
+		GetAllCategoriesTypes GetAllCategoriesTypes { get; }
 	}
 }

@@ -10,6 +10,9 @@ namespace Arshia_Store.Application.Interfaces.Contexts
 		DbSet<User> Users { get; set; }
 		DbSet<Role> Roles { get; set; }
 		DbSet<Category> Categories { get; set; }
+		DbSet<Product> Products { get; set; }
+		DbSet<ProductImage> ProductImages { get; set; }
+		DbSet<ProductFeature> ProductFeatures { get; set; }
 		int SaveChanges(bool acceptAllChangesOnSuccess);
 		int SaveChanges();
 

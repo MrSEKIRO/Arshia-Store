@@ -17,5 +17,7 @@ namespace Arshia_Store.Domain.Entities
 		public int? ParentCategoryId { get; set; }
 
 		public List<Category> SubCategories { get; set; }
+
+		public List<Product> Products { get; set; }
 	}
 }
