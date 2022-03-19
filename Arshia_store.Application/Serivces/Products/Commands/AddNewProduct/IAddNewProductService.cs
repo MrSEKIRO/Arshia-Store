@@ -154,7 +154,7 @@ namespace Arshia_Store.Application.Serivces.Products.Commands.AddNewProduct
 				return new UploadDto()
 				{
 					Status = false,
-					FileNameAddress = String.Empty,
+					FileNameAddress = string.Empty,
 				};
 			}
 		}

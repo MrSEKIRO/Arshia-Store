@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Arshia_Store.Application.Serivces.Products.Queries.GetAllCategoriesTypes
 {
-	public interface IGetAllCategoriesTypes
+	public interface IGetAllCategoriesTypesService
 	{
 		ResultDto<List<CategoriesTypeDto>> Execute();
 	}

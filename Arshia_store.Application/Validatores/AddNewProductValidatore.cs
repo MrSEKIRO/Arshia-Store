@@ -14,7 +14,7 @@ namespace Arshia_Store.Application.Validatores
 		{
 			RuleFor(x => x.Name).NotEmpty().WithMessage("اسم محصول را وارد کنید")
 				.MinimumLength(3).WithMessage("نام محصول باید حداقل 3 کاراکتر باشد")
-				.MaximumLength(30).WithMessage("نام محصول می تواند حداکثر 5 کاراکتر باشد");
+				.MaximumLength(45).WithMessage("نام محصول می تواند حداکثر 45 کاراکتر باشد");
 			
 			RuleFor(x => x.Brand)
 				//.NotEmpty().WithMessage("")

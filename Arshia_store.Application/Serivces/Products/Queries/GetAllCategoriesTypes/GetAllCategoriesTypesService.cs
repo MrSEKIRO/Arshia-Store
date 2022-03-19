@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Arshia_Store.Application.Serivces.Products.Queries.GetAllCategoriesTypes
 {
-	public class GetAllCategoriesTypes : IGetAllCategoriesTypes
+	public class GetAllCategoriesTypesService : IGetAllCategoriesTypesService
 	{
 		private readonly IStoreDbContext _context;
 
-		public GetAllCategoriesTypes(IStoreDbContext context)
+		public GetAllCategoriesTypesService(IStoreDbContext context)
 		{
 			_context = context;
 		}

@@ -16,9 +16,24 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 		{
 			_productFacad = productFacad;
 		}
-		public IActionResult Index()
+		public IActionResult Index(int Page = 1, int PageSize = 20)
 		{
-			return View();
+			var result = _productFacad.GetProductForAdminService.Execute(Page, PageSize);
+			return View(result.Data);
+		}
+
+		public IActionResult Detail(int Id)
+		{
+			var result = _productFacad.GetProductDetailForAdminService.Execute(Id);
+
+			return View(result.Data);
+		}
+
+		public IActionResult DeleteProduct(int Id)
+		{
+			var result = _productFacad.DeleteProductService.Execute(Id);
+
+			return Json(result);
 		}
 
 		[HttpGet]
@@ -31,7 +46,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddNewProduct(RequestAddNewProductDto request,List<AddNewProduct_Feature> Features)
+		public IActionResult AddNewProduct(RequestAddNewProductDto request, List<AddNewProduct_Feature> Features)
 		{
 			List<IFormFile> Images = new List<IFormFile>();
 
