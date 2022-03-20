@@ -6,7 +6,9 @@ using Arshia_Store.Application.Serivces.Products.Commands.DeleteProduct;
 using Arshia_Store.Application.Serivces.Products.Queries.GetAllCategories;
 using Arshia_Store.Application.Serivces.Products.Queries.GetAllCategoriesTypes;
 using Arshia_Store.Application.Serivces.Products.Queries.GetProductDetailForAdmin;
+using Arshia_Store.Application.Serivces.Products.Queries.GetProductDetailForSite;
 using Arshia_Store.Application.Serivces.Products.Queries.GetProductForAdmin;
+using Arshia_Store.Application.Serivces.Products.Queries.GetProductsForSite;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 
@@ -26,68 +28,85 @@ namespace Arshia_Store.Application.Serivces.Products.FacadPattern
 		}
 
 
-		private AddNewCategoryService _AddNewCategoryService;
-		public AddNewCategoryService AddNewCategoryService
+		private IAddNewCategoryService _addNewCategoryService;
+		public IAddNewCategoryService AddNewCategoryService
 		{
 			get
 			{
-				return _AddNewCategoryService ??= new AddNewCategoryService(_context);
+				return _addNewCategoryService ??= new AddNewCategoryService(_context);
 			}
 		}
 
-		private GetCategoriesService _GetCategoriesService;
-		public GetCategoriesService GetCategoriesService
+		private IGetCategoriesService _getCategoriesService;
+		public IGetCategoriesService GetCategoriesService
 		{
 			get
 			{
-				return _GetCategoriesService ??= new GetCategoriesService(_context);
+				return _getCategoriesService ??= new GetCategoriesService(_context);
 			}
 		}
 
-		private AddNewProductService _AddNewProductService;
-		public AddNewProductService AddNewProductService
+		private IAddNewProductService _addNewProductService;
+		public IAddNewProductService AddNewProductService
 		{
 			get
 			{
-				return _AddNewProductService ??= new AddNewProductService(_context, _environment);
+				return _addNewProductService ??= new AddNewProductService(_context, _environment);
 			}
 		}
 
-		private GetAllCategoriesTypesService _GetAllCategoriesTypes;
-		public GetAllCategoriesTypesService GetAllCategoriesTypes
+		private IGetAllCategoriesTypesService _getAllCategoriesTypes;
+		public IGetAllCategoriesTypesService GetAllCategoriesTypes
 		{
 			get
 			{
-				return _GetAllCategoriesTypes ??= new GetAllCategoriesTypesService(_context);
+				return _getAllCategoriesTypes ??= new GetAllCategoriesTypesService(_context);
 			}
 		}
 
-		private GetProductForAdminService _GetProductForAdminService;
-		public GetProductForAdminService GetProductForAdminService
+		private IGetProductForAdminService _getProductForAdminService;
+		public IGetProductForAdminService GetProductForAdminService
 		{
 			get
 			{
-				return _GetProductForAdminService ??= new GetProductForAdminService(_context, _mapper);
+				return _getProductForAdminService ??= new GetProductForAdminService(_context, _mapper);
 			}
 		}
 
-		private GetProductDetailForAdminService _GetProductDetailForAdminService;
-		public GetProductDetailForAdminService GetProductDetailForAdminService
+		private IGetProductDetailForAdminService _getProductDetailForAdminService;
+		public IGetProductDetailForAdminService GetProductDetailForAdminService
 		{
 			get
 			{
-				return _GetProductDetailForAdminService ??= new GetProductDetailForAdminService(_context, _mapper);
+				return _getProductDetailForAdminService ??= new GetProductDetailForAdminService(_context, _mapper);
 			}
 		}
 
-		private DeleteProductService _DeleteProductService;
-		public DeleteProductService DeleteProductService
+		private IDeleteProductService _deleteProductService;
+		public IDeleteProductService DeleteProductService
 		{
 			get
 			{
-				return _DeleteProductService ??= new DeleteProductService(_context);
+				return _deleteProductService ??= new DeleteProductService(_context);
 			}
 		}
 
+		private IGetProductsForSiteService _getProductsForSiteService;
+		public IGetProductsForSiteService GetProductsForSiteService
+		{
+			get
+			{
+				return _getProductsForSiteService ??= new GetProductsForSiteService(_context);
+			}
+		}
+
+		private IGetProductDetailForSiteService _getProductDetailForSite;
+		public IGetProductDetailForSiteService GetProductDetailForSite
+		{
+			get
+			{
+				return _getProductDetailForSite ??= new GetProductDetailForSiteService(_context);
+			}
+		}
 	}
 }
