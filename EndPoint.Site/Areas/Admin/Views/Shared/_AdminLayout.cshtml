@@ -1,6 +1,9 @@
-﻿
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
+    string imageSource=string.Empty;
+    if(Context.User.Identity.IsAuthenticated==true)
+        imageSource=$"https://robohash.org/{Context.User.Identity.Name.Replace(" ","")}/?set=set4";
 }
 
 <!DOCTYPE html>
@@ -41,13 +44,14 @@
             <div class="sidebar-header">
                 <div class="logo clearfix">
                     <a href="index-2.html" class="logo-text float-right">
-                        <div class="logo-img"><img src="~/AdminTemplate/app-assets/img/logo.png" alt="Convex Logo" /></div><span class="text align-middle">CONVEX</span>
+                        <div class="logo-img"><img src=@imageSource alt="Convex Logo" /></div><span class="text align-middle">CONVEX</span>
                     </a><a id="sidebarToggle" href="javascript:;" class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="expanded" class="ft-disc toggle-icon"></i></a><a id="sidebarClose" href="javascript:;" class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a>
                 </div>
             </div>
             <div class="sidebar-content">
                 <div class="nav-container">
                     <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
                         <li class="has-sub nav-item">
                             <a href="#"><i class="icon-home"></i><span data-i18n="" class="menu-title">داشبورد</span><span class="tag badge badge-pill badge-danger mt-1">2</span></a>
                         </li>
@@ -55,7 +59,7 @@
                         <li class="has-sub nav-item">
                             <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title">مدیریت کاربران</span></a>
                             <ul class="menu-content">
-                                <li class="active">
+                                <li>
                                     <a href="~/admin/user/index" class="menu-item">لیست کاربران</a>
                                 </li>
                                 <li>
@@ -63,6 +67,31 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title">  دسته بندی ها </span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="~/admin/categories/" class="menu-item">دسته بندی ها</a>
+                                </li>
+                                <li>
+                                    <a href="~/admin/categories/addnewcategory" class="menu-item">*افزودن دسته بندی جدید *</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-crop"></i><span data-i18n="" class="menu-title">  کالا ها </span></a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a href="~/admin/products/index" class="menu-item">همه کالا ها</a>
+                                </li>
+                                <li>
+                                    <a href="~/admin/products/addnewproduct" class="menu-item"> افزودن کالای جدید* </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -128,13 +157,16 @@
                             </li>
                             <li class="dropdown nav-item mr-0">
                                 <a id="dropdownBasic3" href="#" data-toggle="dropdown" class="nav-link position-relative dropdown-user-link dropdown-toggle">
-                                    <span class="avatar avatar-online"><img id="navbar-avatar" src="~/AdminTemplate/app-assets/img/portrait/small/avatar-s-3.jpg" alt="avatar" /></span>
+                                    <span class="avatar avatar-online"><img id="navbar-avatar" src=@imageSource alt="avatar" /></span>
                                     <p class="d-none">تنظیمات کاربر</p>
                                 </a>
                                 <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-left">
                                     <div class="arrow_box_right">
-                                        <a href="user-profile-page.html" class="dropdown-item py-1"><i class="ft-edit ml-2"></i><span>پروفایل من</span></a><a href="chat.html" class="dropdown-item py-1"><i class="ft-message-circle ml-2"></i><span>چت من</span></a><a href="javascript:;" class="dropdown-item py-1"><i class="ft-settings ml-2"></i><span>تنظیمات</span></a>
-                                        <div class="dropdown-divider"></div><a href="javascript:;" class="dropdown-item"><i class="ft-power ml-2"></i><span>خروج</span></a>
+                                        <a href="user-profile-page.html" class="dropdown-item py-1"><i class="ft-edit ml-2"></i><span>پروفایل من</span></a>
+                                        <a href="chat.html" class="dropdown-item py-1"><i class="ft-message-circle ml-2"></i><span>چت من</span></a>
+                                        <a href="javascript:;" class="dropdown-item py-1"><i class="ft-settings ml-2"></i><span>تنظیمات</span></a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="javascript:;" class="dropdown-item"><i class="ft-power ml-2"></i><span>خروج</span></a>
                                     </div>
                                 </div>
                             </li>
@@ -407,9 +439,9 @@
     <!-- BEGIN PAGE LEVEL JS-->
     <!-- END PAGE LEVEL JS-->
 
-    @RenderSection("Scripts")
+    @RenderSection("Scripts",false)
 
-    @RenderSection("Modals")
+    @RenderSection("Modals",false)
 </body>
 
 <!-- Mirrored from pixinvent.com/demo/convex-bootstrap-admin-dashboard-template/demo-1/grids.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 20 Sep 2018 14:54:38 GMT -->

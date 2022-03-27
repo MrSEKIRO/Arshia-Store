@@ -1,6 +1,7 @@
 ﻿using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Common.UserRoles;
 using Arshia_Store.Domain.Entities;
+using Arshia_Store.Domain.Entities.HomePage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,10 +16,17 @@ namespace Arshai_Store.Presistence.Contexts
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductImage> ProductImages { get; set; }
+		public DbSet<ProductFeature> ProductFeatures { get; set; }
+		public DbSet<Slider> Sliders { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
+
+			// we don`t use EntityConfiguration here
+			modelBuilder.Entity<Slider>().HasQueryFilter(u => u.IsRemoved == false);
 		}
 	}
 
@@ -54,6 +62,30 @@ namespace Arshai_Store.Presistence.Contexts
 		{
 			builder.HasQueryFilter(u=>u.IsRemoved == false);
 
+		}
+	}
+
+	public class ProductTypeConfigurations : IEntityTypeConfiguration<Product>
+	{
+		public void Configure(EntityTypeBuilder<Product> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
+		}
+	}
+	
+	public class ProductImageTypeConfigurations : IEntityTypeConfiguration<ProductImage>
+	{
+		public void Configure(EntityTypeBuilder<ProductImage> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
+		}
+	}
+	
+	public class ProductFeatureTypeConfigurations : IEntityTypeConfiguration<ProductFeature>
+	{
+		public void Configure(EntityTypeBuilder<ProductFeature> builder)
+		{
+			builder.HasQueryFilter(u=>u.IsRemoved == false);
 		}
 	}
 }

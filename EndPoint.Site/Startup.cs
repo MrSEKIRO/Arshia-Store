@@ -1,6 +1,11 @@
 using Arshai_Store.Presistence.Contexts;
+using Arshia_Store.Application.AutoMapper.Products;
 using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Application.Interfaces.FacadPatterns;
+using Arshia_Store.Application.Serivces.HomePages.Command.AddNewSlider;
+using Arshia_Store.Application.Serivces.HomePages.Queries.GetSlider;
+using Arshia_Store.Application.Serivces.Menu.Queries;
+using Arshia_Store.Application.Serivces.Menu.Queries.GetCategories;
 using Arshia_Store.Application.Serivces.Products.FacadPattern;
 using Arshia_Store.Application.Serivces.Users.Commands.EditUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
@@ -84,6 +89,18 @@ namespace EndPoint.Site
 			// Facad Inject for Products
 			services.AddScoped<IProductFacad, ProductFacad>();
 
+			// Inject of GetMenu Service
+			services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+
+			services.AddScoped<IGetCategoriesService,GetCategoriesService>();
+
+			// Inject Slider Service
+			services.AddScoped<IAddNewSliderService,AddNewSliderService>();
+			services.AddScoped<IGetSliderService, GetSliderService>();
+
+			// AutoMapper for Product to ProductForAdmin
+			services.AddAutoMapper(typeof(ProductMapper).Assembly);
+
 			// Add EF Core
 			services.AddEntityFrameworkSqlServer()
 				.AddDbContext<StoreDbContext>(option => option.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
@@ -117,6 +134,12 @@ namespace EndPoint.Site
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
+
+				// Products/Index.cshtml line 46
+				endpoints.MapAreaControllerRoute(
+					name: "Admin",
+					areaName:"Admin",
+					pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
 
 				endpoints.MapControllerRoute(
 					name: "default",

@@ -1,0 +1,27 @@
+﻿@using Arshia_Store.Application.Serivces.Menu.Queries
+@model List<MenuItemDto>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+     <li id="nav-menu-item" class="menu-item nav-overlay">
+        <a asp-action="Index" asp-controller="Product" asp-route-CategoryId=@item.CategoryId class="current-link-menu">
+            @item.Name
+        </a>
+        <ul class="sub-menu is-mega-menu-small">
+            @if(item.MenuItems.Count()>0)
+            {
+                @foreach (var sub in item.MenuItems)
+                {
+                    <li class="menu-mega-item menu-item-type-mega-menu item-small">
+                        <a asp-action="Index" asp-controller="Product" asp-route-CategoryId=@sub.CategoryId class="mega-menu-link">
+                            @sub.Name
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </li>
+}

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Arshia_Store.Common\Arshia_Store.Common.csproj" />
     <ProjectReference Include="..\Arshia_Store.Domain\Arshia_Store.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Serivces\Menu\Commands\" />
   </ItemGroup>
 
 </Project>
