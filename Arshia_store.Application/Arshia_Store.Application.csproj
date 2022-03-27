@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Arshia_Store.Domain\Arshia_Store.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Serivces\Menu\Commands\" />
+  </ItemGroup>
+
 </Project>

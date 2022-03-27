@@ -26,11 +26,17 @@ namespace Arshia_Store.Application.Serivces.Products.Queries.GetProductDetailFor
 		{
 			try
 			{
-				var productDetail = _context.Products
+				var product = _context.Products
 					.Where(p => p.Id == ProductId)
 					.Include(p => p.Category)
 					.Include(p => p.ProductImages)
-					.Include(p => p.ProductFeatures)
+					.Include(p => p.ProductFeatures).AsQueryable();
+
+				// add a view to product
+				product.FirstOrDefault().ViewCount++;
+				_context.SaveChanges();
+
+				var productDetail = product
 					.Select(p => new ProductDetailForSiteDto()
 					{
 						Id = p.Id,

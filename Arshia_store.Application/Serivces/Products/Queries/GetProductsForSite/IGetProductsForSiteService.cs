@@ -12,7 +12,24 @@ namespace Arshia_Store.Application.Serivces.Products.Queries.GetProductsForSite
 {
 	public interface IGetProductsForSiteService
 	{
-		ResultDto<ResultProductForSiteDto> Execute(int Page = 1, int PageSize = 25);
+		ResultDto<ResultProductForSiteDto> Execute(Ordering ordernig, string SearchKey, int Page = 1, int? CategoryId = null, int PageSize = 5);
+	}
+
+	public enum Ordering
+	{
+		NotOrder,
+		/// <summary>
+		/// پر بازدید ترین
+		/// </summary>
+		MostVisited,
+		/// <summary>
+		/// پر فروش ترین
+		/// </summary>
+		BestSelling,
+		MostPopular,
+		TheNewest,
+		Cheapest,
+		MostExpensive,
 	}
 
 	public class GetProductsForSiteService : IGetProductsForSiteService
@@ -23,14 +40,56 @@ namespace Arshia_Store.Application.Serivces.Products.Queries.GetProductsForSite
 		{
 			_context = context;
 		}
-		public ResultDto<ResultProductForSiteDto> Execute(int Page = 1, int PageSize = 5)
+		public ResultDto<ResultProductForSiteDto> Execute(Ordering ordernig, string SearchKey, int Page = 1, int? CategoryId = null, int PageSize = 5)
 		{
 			try
 			{
 				int rowCount = 0;
 
-				var products = _context.Products
+				var allProducts = _context.Products
 					.Include(p => p.ProductImages)
+					.Include(p => p.Category)
+					.AsQueryable();
+
+				if(CategoryId != null)
+				{
+					allProducts = allProducts.Where(p => p.CategoryId == CategoryId || p.Category.ParentCategoryId == CategoryId).AsQueryable();
+				}
+
+				if(string.IsNullOrEmpty(SearchKey) == false)
+				{
+					allProducts = allProducts.Where(p => p.Name.Contains(SearchKey) || p.Brand.Contains(SearchKey)).AsQueryable();
+				}
+
+				if(ordernig != Ordering.NotOrder)
+				{
+					switch(ordernig)
+					{
+						case Ordering.MostVisited:
+							allProducts = allProducts.OrderByDescending(p => p.ViewCount).AsQueryable();
+							break;
+						// not implemented correctlly
+						case Ordering.BestSelling:
+							//allProducts = allProducts.OrderBy(p => p.Inventory).AsQueryable();
+							break;
+						case Ordering.MostPopular:
+							//allProducts = allProducts.OrderByDescending(p => p.).AsQueryable();
+							break;
+						case Ordering.TheNewest:
+							allProducts = allProducts.OrderByDescending(p => p.InsertTime).AsQueryable();
+							break;
+						case Ordering.Cheapest:
+							allProducts = allProducts.OrderBy(p => p.Price).AsQueryable();
+							break;
+						case Ordering.MostExpensive:
+							allProducts = allProducts.OrderByDescending(p => p.Price).AsQueryable();
+							break;
+						default:
+							break;
+					}
+				}
+
+				var products = allProducts
 					.ToPaged(Page, PageSize, out rowCount)
 					.Select(p => new ProductForSiteDto()
 					{

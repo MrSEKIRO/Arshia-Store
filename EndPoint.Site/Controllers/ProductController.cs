@@ -1,5 +1,7 @@
 ﻿using Arshia_Store.Application.Interfaces.FacadPatterns;
+using Arshia_Store.Application.Serivces.Products.Queries.GetProductsForSite;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace EndPoint.Site.Controllers
 {
@@ -11,16 +13,16 @@ namespace EndPoint.Site.Controllers
 		{
 			_productFacad = productFacad;
 		}
-		public IActionResult Index(int Page = 1, int PageSize = 25)
+		public IActionResult Index(Ordering ordering, string SearchKey, int Page = 1, int? CategoryId = null, int PageSize = 5)
 		{
-			var result = _productFacad.GetProductsForSiteService.Execute(Page, PageSize);
+			var result = _productFacad.GetProductsForSiteService.Execute(ordering, SearchKey, Page, CategoryId, PageSize);
 
 			return View(result.Data);
 		}
 
 		public IActionResult Detail(int ProductId)
 		{
-			var result=_productFacad.GetProductDetailForSite.Execute(ProductId);
+			var result = _productFacad.GetProductDetailForSite.Execute(ProductId);
 
 			return View(result.Data);
 		}

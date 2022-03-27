@@ -1,9 +1,20 @@
-﻿
+﻿@addTagHelper *, LazZiya.TagHelpers
 @using Arshia_Store.Application.Serivces.Products.Queries.GetProductsForSite
 @model ResultProductForSiteDto
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int Page=1;
+    int PageSize = 15;
+    int.TryParse(Context.Request.Query["Page"], out Page);
+    int.TryParse(Context.Request.Query["PageSize"], out PageSize);
+
+    if(Page == 0)
+        Page = 1;
+
+    if(PageSize == 0)
+        PageSize = 5;
 }
 
 <div class="col-lg-12 col-md-12 col-xs-12 pl">
@@ -16,37 +27,60 @@
                 <div class="nav-sort-tabs-res">
                     <ul class="nav sort-tabs-options" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="Most-visited-tab" data-toggle="tab" href="#Most-visited" role="tab" aria-controls="Most-visited" aria-selected="true">پربازدیدترین</a>
+                            <a class="nav-link"
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=1"
+                            role="tab"
+                            aria-controls="Most-visited"
+                            aria-selected="false">پربازدیدترین</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="Bestselling-tab" data-toggle="tab" href="#Bestselling" role="tab" aria-controls="Bestselling" aria-selected="false">پرفروش&zwnj;ترین&zwnj;</a>
+                            <a class="nav-link" 
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=2" 
+                            role="tab" 
+                            aria-controls="Bestselling" 
+                            aria-selected="false">پرفروش&zwnj;ترین&zwnj;</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="Most-Popular-tab" data-toggle="tab" href="#Most-Popular" role="tab" aria-controls="Most-Popular" aria-selected="false">محبوب&zwnj;ترین</a>
+                            <a class="nav-link" 
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=3" 
+                            role="tab" 
+                            aria-controls="Most-Popular" 
+                            aria-selected="false">محبوب&zwnj;ترین</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="newest-tab" data-toggle="tab" href="#newest" role="tab" aria-controls="newest" aria-selected="false">جدیدترین</a>
+                            <a class="nav-link" 
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=4" 
+                            role="tab" 
+                            aria-controls="newest" 
+                            aria-selected="false">جدیدترین</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="cheapest-tab" data-toggle="tab" href="#cheapest" role="tab" aria-controls="cheapest" aria-selected="false">ارزان&zwnj;ترین</a>
+                            <a class="nav-link" 
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=5" 
+                            role="tab" 
+                            aria-controls="cheapest" 
+                            aria-selected="false">ارزان&zwnj;ترین</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="most-expensive-tab" data-toggle="tab" href="#most-expensive" role="tab" aria-controls="most-expensive" aria-selected="false">گران&zwnj;ترین</a>
+                            <a class="nav-link" 
+                            href="~/product?SearchKey=@(Context.Request.Query["SearchKey"])&CategoryId=@(Context.Request.Query["CategoryId"])&ordering=6" 
+                            role="tab" 
+                            aria-controls="most-expensive" 
+                            aria-selected="false">گران&zwnj;ترین</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="product-items">
                 <div class="tab-content" id="myTabContent">
-
-                    @foreach (var item in Model.Products)
-                    {
-                        <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
-                            <div class="row">
+                    <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
+                        <div class="row">
+                            @foreach (var item in Model.Products)
+                            {
                                 <div class="col-lg-3 col-md-3 col-xs-12 order-1 d-block mb-3">
                                     <section class="product-box product product-type-simple">
                                         <div class="thumb">
-                                            <a href="#" class="d-block">
+                                            <a asp-action="Detail" asp-controller="Product" asp-route-ProductId=@item.Id class="d-block">
                                                 <div class="product-rate">
                                                     @for (int i = 1; i <= item.Star; i++)
                                                     {
@@ -59,11 +93,11 @@
                                                 </div>
                                                 @if(item.ImageSrc != string.Empty)
                                                 {
-                                                    <img src="~/@item.ImageSrc">
+                                                    <img width="400" height="300" src="~/@item.ImageSrc">
                                                 }
                                                 else
                                                 {
-                                                    <img src="~/images/ProductImages/nofound.jpg">
+                                                    <img width="400" height="300" src="~/images/ProductImages/nofound.jpg">
                                                 }
                                             </a>
                                         </div>
@@ -78,35 +112,27 @@
                                         </div>
                                     </section>
                                 </div>
-
-                            </div>
+                            }   
                         </div>
-                    }
+                    </div>
                 </div>
             </div>
             <div class="pagination-product">
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <paging total-records="Model.TotalRow"
+                            page-no="@Page"
+                            page-size="@PageSize"
+                            show-prev-next="true"
+                            show-total-pages="false"
+                            show-total-records="false"
+                            show-page-size-nav="true"
+                            show-first-numbered-page="true"
+                            show-last-numbered-page="true"
+                            query-string-key-page-no="Page"
+                            query-string-key-page-size="PageSize"
+                            query-string-value="@(Context.Request.QueryString.Value)" 
+                            gap-size="2">
+                    </paging>
                 </nav>
             </div>
         </div>

@@ -16,6 +16,7 @@ namespace Arshia_Store.Domain.Entities
 		public int Price { get; set; }
 		public int Inventory { get; set; }
 		public bool Display { get; set; } = true;
+		public int ViewCount { get; set; }
 		public Category Category { get; set; }
 		public int CategoryId { get; set; }
 

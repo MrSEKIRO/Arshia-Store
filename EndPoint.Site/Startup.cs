@@ -2,6 +2,10 @@ using Arshai_Store.Presistence.Contexts;
 using Arshia_Store.Application.AutoMapper.Products;
 using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Application.Interfaces.FacadPatterns;
+using Arshia_Store.Application.Serivces.HomePages.Command.AddNewSlider;
+using Arshia_Store.Application.Serivces.HomePages.Queries.GetSlider;
+using Arshia_Store.Application.Serivces.Menu.Queries;
+using Arshia_Store.Application.Serivces.Menu.Queries.GetCategories;
 using Arshia_Store.Application.Serivces.Products.FacadPattern;
 using Arshia_Store.Application.Serivces.Users.Commands.EditUser;
 using Arshia_Store.Application.Serivces.Users.Commands.RegisterUser;
@@ -84,6 +88,15 @@ namespace EndPoint.Site
 
 			// Facad Inject for Products
 			services.AddScoped<IProductFacad, ProductFacad>();
+
+			// Inject of GetMenu Service
+			services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+
+			services.AddScoped<IGetCategoriesService,GetCategoriesService>();
+
+			// Inject Slider Service
+			services.AddScoped<IAddNewSliderService,AddNewSliderService>();
+			services.AddScoped<IGetSliderService, GetSliderService>();
 
 			// AutoMapper for Product to ProductForAdmin
 			services.AddAutoMapper(typeof(ProductMapper).Assembly);

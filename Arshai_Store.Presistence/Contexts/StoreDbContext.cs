@@ -1,6 +1,7 @@
 ﻿using Arshia_Store.Application.Interfaces.Contexts;
 using Arshia_Store.Common.UserRoles;
 using Arshia_Store.Domain.Entities;
+using Arshia_Store.Domain.Entities.HomePage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,10 +19,14 @@ namespace Arshai_Store.Presistence.Contexts
 		public DbSet<Product> Products { get; set; }
 		public DbSet<ProductImage> ProductImages { get; set; }
 		public DbSet<ProductFeature> ProductFeatures { get; set; }
+		public DbSet<Slider> Sliders { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
+
+			// we don`t use EntityConfiguration here
+			modelBuilder.Entity<Slider>().HasQueryFilter(u => u.IsRemoved == false);
 		}
 	}
 

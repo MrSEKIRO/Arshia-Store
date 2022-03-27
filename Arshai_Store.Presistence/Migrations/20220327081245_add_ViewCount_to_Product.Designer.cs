@@ -4,14 +4,16 @@ using Arshai_Store.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Arshai_Store.Presistence.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220327081245_add_ViewCount_to_Product")]
+    partial class add_ViewCount_to_Product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,36 +51,6 @@ namespace Arshai_Store.Presistence.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Arshia_Store.Domain.Entities.HomePage.Slider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("InsertTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RemoveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Src")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Arshia_Store.Domain.Entities.Product", b =>
@@ -228,21 +200,21 @@ namespace Arshai_Store.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 3, 27, 17, 9, 35, 95, DateTimeKind.Local).AddTicks(5573),
+                            InsertTime = new DateTime(2022, 3, 27, 12, 42, 44, 694, DateTimeKind.Local).AddTicks(9398),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 3, 27, 17, 9, 35, 100, DateTimeKind.Local).AddTicks(53),
+                            InsertTime = new DateTime(2022, 3, 27, 12, 42, 44, 698, DateTimeKind.Local).AddTicks(7863),
                             IsRemoved = false,
                             Name = "Operator"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 3, 27, 17, 9, 35, 100, DateTimeKind.Local).AddTicks(233),
+                            InsertTime = new DateTime(2022, 3, 27, 12, 42, 44, 698, DateTimeKind.Local).AddTicks(8038),
                             IsRemoved = false,
                             Name = "Costumer"
                         });
